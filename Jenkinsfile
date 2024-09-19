@@ -61,7 +61,7 @@ pipeline {
                     docker tag $IMAGE_TAG $ECR_URI:$BUILD_ID
                     docker tag $IMAGE_TAG $ECR_URI:$LATEST_TAG
                     docker push $ECR_URI:$BUILD_ID
-                    docker push $ECR_URI:$LATEST_TAG
+                    docker push $ECR_URI:$LATEST_TAG 
                     '''
                 }
             }
