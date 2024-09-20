@@ -1,4 +1,4 @@
-package com.pobluesky.global.config;
+package com.pobluesky.voc.global.config;
 
 
 import java.net.InetAddress;
