@@ -5,9 +5,26 @@ import com.pobluesky.voc.question.entity.QuestionStatus;
 import com.pobluesky.voc.question.entity.QuestionType;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface QuestionRepositoryCustom {
-    List<QuestionSummaryResponseDTO> findAllQuestionsByCustomerWithoutPaging(
+    Page<QuestionSummaryResponseDTO> findQuestionsByManager(
+        Pageable pageable,
+        QuestionStatus status,
+        QuestionType type,
+        String title,
+        Long questionId,
+        String customerName,
+        Boolean isActivated,
+        LocalDate startDate,
+        LocalDate endDate,
+        Long managerId,
+        String sortBy
+    );
+
+    Page<QuestionSummaryResponseDTO> findQuestionsByCustomer(
+        Pageable pageable,
         Long userId,
         QuestionStatus status,
         QuestionType type,
@@ -18,14 +35,13 @@ public interface QuestionRepositoryCustom {
         String sortBy
     );
 
-    List<QuestionSummaryResponseDTO> findAllQuestionsByManagerWithoutPaging(
-        QuestionStatus status,
-        QuestionType type,
-        String title,
-        Long questionId,
-        String customerName,
-        LocalDate startDate,
-        LocalDate endDate,
-        String sortBy
+    List<QuestionSummaryResponseDTO> findQuestionsBySearch(
+            String sortBy,
+            QuestionStatus status,
+            QuestionType type,
+            String title,
+            String customerName,
+            LocalDate startDate,
+            LocalDate endDate
     );
 }

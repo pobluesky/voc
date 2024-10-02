@@ -14,6 +14,8 @@ public record QuestionUpdateRequestDTO(
 
     QuestionStatus status,
 
-    QuestionType type
+    QuestionType type,
+
+    Boolean isFileDeleted
 ) {
 }

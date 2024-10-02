@@ -12,10 +12,13 @@ import com.pobluesky.voc.question.entity.QuestionType;
 import com.pobluesky.voc.question.service.QuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,28 +43,42 @@ public class QuestionController {
 
     @GetMapping("/managers")
     @Operation(summary = "질문 조회(담당자)", description = "등록된 모든 질문을 조건에 맞게 조회한다.")
-    public ResponseEntity<JsonResult> getAllQuestionsByManagerWithoutPaging(
+    public ResponseEntity<JsonResult> getQuestionByManager(
         @RequestHeader("Authorization") String token,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "15") int size,
         @RequestParam(defaultValue = "LATEST") String sortBy,
         @RequestParam(required = false) QuestionStatus status,
         @RequestParam(required = false) QuestionType type,
         @RequestParam(required = false) String title,
         @RequestParam(required = false) Long questionId,
         @RequestParam(required = false) String customerName,
+        @RequestParam(required = false) Boolean isActivated,
+        @RequestParam(required = false) Long managerId,
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
 
-        List<QuestionSummaryResponseDTO> response = questionService.getAllQuestionsByManagerWithoutPaging(
+        Page<QuestionSummaryResponseDTO> questions = questionService.getQuestionsByManager(
             token,
+            page,
+            size,
             sortBy,
             status,
             type,
             title,
             questionId,
             customerName,
+            isActivated,
+            managerId,
             startDate,
             endDate
         );
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("questionsInfo", questions.getContent());
+        response.put("totalElements", questions.getTotalElements());
+        response.put("totalPages", questions.getTotalPages());
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(ResponseFactory.getSuccessJsonResult(response));
@@ -85,9 +102,11 @@ public class QuestionController {
 
     @GetMapping("/customers/{userId}")
     @Operation(summary = "질문 조회(고객사)", description = "등록된 모든 질문을 조건에 맞게 조회한다.")
-    public ResponseEntity<JsonResult> getAllQuestionsByCustomerWithoutPaging(
+    public ResponseEntity<JsonResult> getQuestionsByCustomer(
         @RequestHeader("Authorization") String token,
         @PathVariable Long userId,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "15") int size,
         @RequestParam(defaultValue = "LATEST") String sortBy,
         @RequestParam(required = false) QuestionStatus status,
         @RequestParam(required = false) QuestionType type,
@@ -96,9 +115,11 @@ public class QuestionController {
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
 
-        List<QuestionSummaryResponseDTO> response = questionService.getAllQuestionsByCustomerWithoutPaging(
+        Page<QuestionSummaryResponseDTO> questions = questionService.getQuestionsByCustomer(
             token,
             userId,
+            page,
+            size,
             sortBy,
             status,
             type,
@@ -107,6 +128,12 @@ public class QuestionController {
             startDate,
             endDate
         );
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("questionsInfo", questions.getContent());
+        response.put("totalElements", questions.getTotalElements());
+        response.put("totalPages", questions.getTotalPages());
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(ResponseFactory.getSuccessJsonResult(response));
@@ -157,7 +184,7 @@ public class QuestionController {
         @PathVariable Long userId,
         @RequestPart(value = "files", required = false) MultipartFile file,
         @RequestPart("question") QuestionCreateRequestDTO questionCreateRequestDTO) {
-        QuestionResponseDTO response = questionService.createNotInquiryQuestion(
+        QuestionResponseDTO response = questionService.createGeneralQuestion(
             token,
             userId,
             file,
@@ -200,7 +227,7 @@ public class QuestionController {
         @RequestPart(value = "files", required = false) MultipartFile file,
         @RequestPart("question") QuestionUpdateRequestDTO questionUpdateRequestDTO
     ) {
-        QuestionResponseDTO response = questionService.updateNotInquiryQuestionById(
+        QuestionResponseDTO response = questionService.updateGeneralQuestion(
             token,
             userId,
             questionId,

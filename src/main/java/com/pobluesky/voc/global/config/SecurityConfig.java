@@ -47,6 +47,12 @@ public class SecurityConfig {
                     .requestMatchers("/api/inquiries/exists/**").permitAll()
                     .requestMatchers("/api/inquiries/without-token/**").permitAll()
                     .requestMatchers("/api/questions/**").permitAll()
+                    .requestMatchers("/mobile/api/inquiries/**").permitAll()
+                    .requestMatchers("/mobile/api/questions/**").permitAll()
+                    .requestMatchers("/mobile/api/answers/**").permitAll()
+                    .requestMatchers("/mobile/api/users/**").permitAll()
+                    .requestMatchers("/mobile/api/notifications/**").permitAll()
+                    .requestMatchers("/mobile/api/reviews/**").permitAll()
                     .anyRequest().authenticated()
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

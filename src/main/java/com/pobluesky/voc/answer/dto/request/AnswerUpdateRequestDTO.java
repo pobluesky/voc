@@ -8,6 +8,8 @@ public record AnswerUpdateRequestDTO (
 
     String fileName,
 
-    String filePath
+    String filePath,
+
+    Boolean isFileDeleted
 ) {
 }

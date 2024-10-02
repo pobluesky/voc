@@ -1,5 +1,6 @@
 package com.pobluesky.voc.question.dto.response;
 
+import com.pobluesky.voc.collaboration.entity.ColStatus;
 import com.pobluesky.voc.feign.Customer;
 import com.pobluesky.voc.feign.Inquiry;
 import com.pobluesky.voc.feign.InquiryClient;
@@ -36,6 +37,10 @@ public record QuestionResponseDTO(
 
     LocalDateTime createdDate,
 
+    Long colId,
+
+    ColStatus colStatus,
+
     Boolean isActivated
 ) {
     public static QuestionResponseDTO from(Question question, UserClient userClient,
@@ -60,6 +65,8 @@ public record QuestionResponseDTO(
             .status(question.getStatus())
             .type(question.getType())
             .createdDate(question.getCreatedDate())
+            .colId(question.getCollaboration() != null ? question.getCollaboration().getColId() : null)
+            .colStatus(question.getCollaboration() != null ? question.getCollaboration().getColStatus() : null)
             .isActivated(question.getIsActivated())
             .build();
     }

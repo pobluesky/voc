@@ -8,8 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuestionRepository extends JpaRepository<Question, Long>,
-    QuestionRepositoryCustom {
+public interface QuestionRepository extends JpaRepository<Question, Long>, QuestionRepositoryCustom {
 
     @Query("SELECT q FROM Question q WHERE q.questionId = :questionId AND q.isActivated = true")
     Optional<Question> findActiveQuestionByQuestionId(Long questionId);

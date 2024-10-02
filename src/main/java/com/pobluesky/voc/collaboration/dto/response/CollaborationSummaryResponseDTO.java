@@ -11,20 +11,29 @@ import lombok.Builder;
 public record CollaborationSummaryResponseDTO(
     Long colId,
     Long questionId,
+    Long colReqId,
     String colReqManager,
+    Long colResId,
+    String colResManager,
     ColStatus colStatus,
     String colContents,
     LocalDateTime createdDate
 ) {
 
     public static CollaborationSummaryResponseDTO from(Collaboration collaboration, UserClient userClient) {
-        Manager manager = userClient.getManagerByIdWithoutToken(
+        Manager reqmanager = userClient.getManagerByIdWithoutToken(
             collaboration.getColRequestId()).getData();
+
+        Manager resmanager = userClient.getManagerByIdWithoutToken(
+            collaboration.getColResponseId()).getData();
 
         return CollaborationSummaryResponseDTO.builder()
             .colId(collaboration.getColId())
             .questionId(collaboration.getQuestion().getQuestionId())
-            .colReqManager(manager.getName())
+            .colReqId(reqmanager.getUserId())
+            .colReqManager(reqmanager.getName())
+            .colResId(resmanager.getUserId())
+            .colResManager(reqmanager.getName())
             .colStatus(collaboration.getColStatus())
             .colContents(collaboration.getColContents())
             .createdDate(collaboration.getCreatedDate())

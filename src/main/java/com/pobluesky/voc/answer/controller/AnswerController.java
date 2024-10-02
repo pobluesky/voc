@@ -9,6 +9,7 @@ import com.pobluesky.voc.global.util.model.CommonResult;
 import com.pobluesky.voc.global.util.model.JsonResult;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -127,14 +128,14 @@ public class AnswerController {
             .body(ResponseFactory.getSuccessJsonResult(response));
     }
 
-    @DeleteMapping("/managers/{questionId}")
-    @Operation(summary = "답변 삭제(담당자)", description = "답변을 삭제한다.")
-    public ResponseEntity<CommonResult> deleteAnswerByID(
-        @RequestHeader("Authorization") String token,
-        @PathVariable Long questionId
+    /* [Start] Dashboard API */
+    @GetMapping("/managers/voc/dashboard")
+    @Operation(summary = "월별 답변 처리 건수 평균")
+    public ResponseEntity<Map<String, List<Object[]>>> averageMonthlyAnswer(
+        @RequestHeader("Authorization") String token
     ) {
-        answerService.deleteAnswerById(token, questionId);
+        Map<String, List<Object[]>> response = answerService.getAverageCountPerMonth(token);
 
-        return ResponseEntity.ok(ResponseFactory.getSuccessResult());
+        return ResponseEntity.ok(response);
     }
 }

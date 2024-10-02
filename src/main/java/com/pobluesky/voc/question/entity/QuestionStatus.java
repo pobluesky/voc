@@ -13,4 +13,14 @@ public enum QuestionStatus {
     QuestionStatus(String status) {
         this.status = status;
     }
+
+    public static QuestionStatus fromString(String status) {
+        for (QuestionStatus questionStatus : QuestionStatus.values()) {
+            if (questionStatus.getStatus().equals(status)) {
+                return questionStatus;
+            }
+        }
+
+        throw new IllegalArgumentException("Unknown status: " + status);
+    }
 }

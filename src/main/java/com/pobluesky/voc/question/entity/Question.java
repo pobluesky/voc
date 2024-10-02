@@ -1,6 +1,7 @@
 package com.pobluesky.voc.question.entity;
 
 import com.pobluesky.voc.answer.entity.Answer;
+import com.pobluesky.voc.collaboration.entity.Collaboration;
 import com.pobluesky.voc.global.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,6 +56,10 @@ public class Question extends BaseEntity {
     private QuestionType type;
 
     @OneToOne(mappedBy = "question", fetch = FetchType.LAZY)
+    @JoinColumn(name = "col_id")
+    private Collaboration collaboration;
+
+    @OneToOne(mappedBy = "question")
     @JoinColumn(name = "question_id")
     private Answer answer;
 
@@ -64,6 +69,7 @@ public class Question extends BaseEntity {
     private Question(
         Long inquiryId,
         Long userId,
+        Collaboration collaboration,
         String title,
         String contents,
         String fileName,
@@ -73,6 +79,7 @@ public class Question extends BaseEntity {
     ) {
         this.inquiryId = inquiryId;
         this.userId = userId;
+        this.collaboration = collaboration;
         this.title = title;
         this.contents = contents;
         this.fileName = fileName;

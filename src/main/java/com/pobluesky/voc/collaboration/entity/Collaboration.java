@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -93,5 +94,23 @@ public class Collaboration extends BaseEntity {
     public void updateFiles(String fileName, String filePath){
         this.fileName = fileName;
         this.filePath = filePath;
+    }
+
+    public void modifyCollaborationContents(String newContents) {
+        this.colContents = newContents;
+    }
+
+    public void modifyColReply(String newReply) {
+        this.colReply = newReply;
+    }
+
+    public void updateCollaborationStatus(Boolean isAccepted) {
+        if (isAccepted != null) {
+            if (isAccepted) {
+                this.colStatus = ColStatus.INPROGRESS;
+            } else {
+                this.colStatus = ColStatus.REFUSE;
+            }
+        }
     }
 }

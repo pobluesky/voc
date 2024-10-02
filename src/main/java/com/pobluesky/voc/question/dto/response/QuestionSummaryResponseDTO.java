@@ -27,6 +27,8 @@ public record QuestionSummaryResponseDTO(
 
     LocalDateTime answerCreatedAt,
 
+    Long managerId,
+
     Boolean isActivated
 ) {
     public static QuestionSummaryResponseDTO from(Question question, UserClient userClient) {
@@ -41,6 +43,7 @@ public record QuestionSummaryResponseDTO(
             .customerName(customer.getName())
             .questionCreatedAt(question.getCreatedDate())
             .answerCreatedAt(question.getAnswer() != null ? question.getAnswer().getCreatedDate() : null)
+            .managerId(question.getAnswer() != null ? question.getAnswer().getManagerId(): null)
             .isActivated(question.getIsActivated())
             .build();
     }

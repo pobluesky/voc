@@ -1,14 +1,17 @@
 package com.pobluesky.voc.collaboration.dto.request;
 
-public record CollaborationUpdateRequestDTO(
+public record CollaborationModifyRequestDTO(
 
     Long colReqId,
 
     Long colResId,
 
+    String colContents,
+
+    Boolean isAccepted,
+
     String colReply,
 
-    Boolean isAccepted
+    Boolean isFileDeleted
 ) {
-
 }
