@@ -9,8 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-@EnableCaching
 @SpringBootApplication
+@EnableCaching
 @ComponentScan(basePackages = {
     "com.pobluesky.voc.global",
     "com.pobluesky.voc.answer",

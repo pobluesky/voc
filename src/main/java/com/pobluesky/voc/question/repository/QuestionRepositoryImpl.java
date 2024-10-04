@@ -1,6 +1,5 @@
 package com.pobluesky.voc.question.repository;
 
-
 import static com.pobluesky.voc.answer.entity.QAnswer.answer;
 import static com.pobluesky.voc.question.entity.QQuestion.question;
 
