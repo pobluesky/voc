@@ -6,6 +6,9 @@ import com.pobluesky.voc.question.entity.Question;
 import com.pobluesky.voc.question.entity.QuestionStatus;
 import com.pobluesky.voc.question.entity.QuestionType;
 import java.time.LocalDateTime;
+
+import java.io.Serializable;
+
 import lombok.Builder;
 
 @Builder
@@ -30,8 +33,10 @@ public record QuestionSummaryResponseDTO(
     Long managerId,
 
     Boolean isActivated
-) {
+
+) implements Serializable {
     public static QuestionSummaryResponseDTO from(Question question, UserClient userClient) {
+
         Customer customer = userClient.getCustomerByIdWithoutToken(question.getUserId()).getData();
 
         return QuestionSummaryResponseDTO.builder()

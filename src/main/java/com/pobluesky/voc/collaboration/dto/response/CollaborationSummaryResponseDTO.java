@@ -9,14 +9,23 @@ import lombok.Builder;
 
 @Builder
 public record CollaborationSummaryResponseDTO(
+
     Long colId,
+
     Long questionId,
+
     Long colReqId,
+
     String colReqManager,
+
     Long colResId,
+
     String colResManager,
+
     ColStatus colStatus,
+
     String colContents,
+
     LocalDateTime createdDate
 ) {
 

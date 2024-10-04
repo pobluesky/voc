@@ -55,7 +55,7 @@ public class Question extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private QuestionType type;
 
-    @OneToOne(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "question")
     @JoinColumn(name = "col_id")
     private Collaboration collaboration;
 

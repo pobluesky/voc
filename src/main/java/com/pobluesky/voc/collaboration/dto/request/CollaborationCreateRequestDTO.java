@@ -5,8 +5,11 @@ import com.pobluesky.voc.feign.Manager;
 import com.pobluesky.voc.question.entity.Question;
 
 public record CollaborationCreateRequestDTO(
+
     Long colReqId,
+
     Long colResId,
+
     String colContents
 ) {
 
