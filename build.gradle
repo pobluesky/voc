@@ -106,6 +106,8 @@ dependencies {
     implementation 'software.amazon.awssdk:cloudfront:2.28.7'
     testImplementation 'software.amazon.awssdk:url-connection-client:2.28.7'
 
+    // redisson
+    implementation "org.redisson:redisson-spring-boot-starter:3.21.1"
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 

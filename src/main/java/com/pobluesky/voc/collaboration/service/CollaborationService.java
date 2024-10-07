@@ -23,6 +23,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.pobluesky.voc.global.redisson.DistributedLock;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -111,8 +113,10 @@ public class CollaborationService {
     }
 
     @Transactional
+    @DistributedLock(key = "#lockName")
     public CollaborationResponseDTO createCollaboration(
         String token,
+        String lockName,
         Long questionId,
         MultipartFile file,
         CollaborationCreateRequestDTO requestDTO
