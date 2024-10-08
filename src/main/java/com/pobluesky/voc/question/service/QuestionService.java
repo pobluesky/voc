@@ -54,7 +54,7 @@ public class QuestionService {
 
     // 질문 전체 조회 (담당자) without paging
     @Transactional(readOnly = true)
-    @Cacheable(value = "questionsCache", key = "#page + '-' + #size + '-' + #sortBy + '-' + #status + '-' + #type + '-' + #title + '-' + #questionId + '-' + #customerName + '-' + #isActivated + '-' + #managerId + '-' + #startDate + '-' + #endDate")
+//    @Cacheable(value = "questionsCache", key = "#page + '-' + #size + '-' + #sortBy + '-' + #status + '-' + #type + '-' + #title + '-' + #questionId + '-' + #customerName + '-' + #isActivated + '-' + #managerId + '-' + #startDate + '-' + #endDate")
     public Page<QuestionSummaryResponseDTO> getQuestionsByManager(
         String token,
         int page,
@@ -90,7 +90,7 @@ public class QuestionService {
 
     // 질문 전체 조회 (고객사)
     @Transactional(readOnly = true)
-    @Cacheable(value = "questionsCache", key = "#page + '-' + #size + '-' + #sortBy + '-' + #status + '-' + #type + '-' + #title + '-' + #questionId + '-' + #startDate + '-' + #endDate")
+//    @Cacheable(value = "questionsCache", key = "#page + '-' + #size + '-' + #sortBy + '-' + #status + '-' + #type + '-' + #title + '-' + #questionId + '-' + #startDate + '-' + #endDate")
     public Page<QuestionSummaryResponseDTO> getQuestionsByCustomer(
         String token,
         Long customerId,
@@ -148,7 +148,7 @@ public class QuestionService {
 
     // 문의별 질문 작성 (고객사)
     @Transactional
-    @CacheEvict(value = "questionsCache", allEntries = true)
+//    @CacheEvict(value = "questionsCache", allEntries = true)
     public QuestionResponseDTO createInquiryQuestion(
         String token,
         Long customerId,
@@ -181,7 +181,7 @@ public class QuestionService {
 
     // 타입별 질문 작성 (고객사)
     @Transactional
-    @CacheEvict(value = "questionsCache", allEntries = true)
+//    @CacheEvict(value = "questionsCache", allEntries = true)
     public QuestionResponseDTO createGeneralQuestion(
         String token,
         Long customerId,
@@ -212,7 +212,7 @@ public class QuestionService {
 
     // 고객사 문의별 질문 수정
     @Transactional
-    @CacheEvict(value = "questionsCache", allEntries = true)
+//    @CacheEvict(value = "questionsCache", allEntries = true)
     public QuestionResponseDTO updateInquiryQuestionById(
         String token,
         Long customerId,
@@ -264,7 +264,7 @@ public class QuestionService {
 
     // 고객사 기타 질문 수정
     @Transactional
-    @CacheEvict(value = "questionsCache", allEntries = true)
+//    @CacheEvict(value = "questionsCache", allEntries = true)
     public QuestionResponseDTO updateGeneralQuestion(
         String token,
         Long customerId,
@@ -313,7 +313,7 @@ public class QuestionService {
 
     // 질문 삭제 (고객사용)
     @Transactional
-    @CacheEvict(value = "questionsCache", allEntries = true)
+//    @CacheEvict(value = "questionsCache", allEntries = true)
     public void deleteQuestionById(
         String token,
         Long customerId,
@@ -336,7 +336,7 @@ public class QuestionService {
 
     // 질문 삭제 (담당자용)
     @Transactional
-    @CacheEvict(value = "questionsCache", allEntries = true)
+//    @CacheEvict(value = "questionsCache", allEntries = true)
     public void deleteQuestionById(
         String token,
         Long questionId
