@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CollaborationRepository extends JpaRepository<Collaboration, Long>, CollaborationRepositoryCustom {
 
-    @Query("SELECT c FROM Collaboration c WHERE c.colId = :collaborationId AND c.question = :question")
-    Optional<Collaboration> findByIdAndQuestion(@Param("collaborationId") Long collaborationId, @Param("question") Question question);
+    @Query("SELECT c FROM Collaboration c WHERE c.colId = :colId AND c.question = :question")
+    Optional<Collaboration> findByColIdAndQuestion(@Param("colId") Long colId, @Param("question") Question question);
 
     @Query("SELECT c FROM Collaboration c WHERE c.question = :question")
     Optional<Collaboration> findByQuestionId(@Param("question") Question question);

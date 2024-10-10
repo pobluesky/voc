@@ -104,7 +104,7 @@ public class CollaborationService {
         Question question = questionRepository.findById(questionId)
             .orElseThrow(() -> new CommonException(ErrorCode.QUESTION_NOT_FOUND));
 
-        Collaboration collaboration = collaborationRepository.findByIdAndQuestion(
+        Collaboration collaboration = collaborationRepository.findByColIdAndQuestion(
                 collaborationId,
                 question
             ).orElseThrow(() -> new CommonException(ErrorCode.COLLABORATION_NOT_FOUND));
