@@ -8,6 +8,7 @@ import com.pobluesky.voc.collaboration.dto.response.CollaborationResponseDTO;
 import com.pobluesky.voc.collaboration.dto.response.CollaborationSummaryResponseDTO;
 import com.pobluesky.voc.collaboration.entity.ColStatus;
 import com.pobluesky.voc.collaboration.service.CollaborationService;
+import com.pobluesky.voc.global.error.CommonException;
 import com.pobluesky.voc.global.redisson.LockKeyGenerator;
 import com.pobluesky.voc.global.util.ResponseFactory;
 import com.pobluesky.voc.global.util.model.JsonResult;
@@ -46,7 +47,7 @@ public class CollaborationController {
         @RequestParam(defaultValue = "15") int size,
         @RequestParam(defaultValue = "LATEST") String sortBy,
         @RequestParam(required = false) Long colId,
-        @RequestParam(required = false) ColStatus colStatus,
+        @RequestParam(required = false) String colStatus,
         @RequestParam(required = false) String colReqManager,
         @RequestParam(required = false) Long colReqId,
         @RequestParam(required = false) String colResManager,
@@ -54,13 +55,21 @@ public class CollaborationController {
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     ) {
+        ColStatus status = null;
+        if (colStatus != null && !"false".equalsIgnoreCase(colStatus)) {
+            try {
+                status = ColStatus.valueOf(colStatus.toUpperCase());
+            } catch (IllegalArgumentException e) {
+
+            }
+        }
         Page<CollaborationSummaryResponseDTO> cols = collaborationService.getAllCollaborations(
             token,
             page,
             size,
             sortBy,
             colId,
-            colStatus,
+            status,
             colReqManager,
             colReqId,
             colResManager,
